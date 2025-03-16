@@ -1,4 +1,4 @@
-const Auth = require('../models/auth');
+const {Auth} = require('../models/index');
 const { hashPassword, comparePassword } = require('../utils/middleware/passroed');
 const { generateAccessToken, generateRefreshToken, verifyToken } = require('../utils/middleware/token');
 const { generateOTP, sendOTP } = require('../utils/middleware/otp');
@@ -19,7 +19,7 @@ const register = async (req, res, next) => {
       return res.status(400).json({ message: 'Username or Gmail already exists' });
     }
 
-    const hashedPassword = hashPassword(password);
+    const hashedPassword = await hashPassword(password);
     const user = new Auth({ username, gmail, password: hashedPassword });
     await user.save();
 

@@ -3,7 +3,8 @@ require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 const express = require('express');
 const db = require('./db/db');
 const cookieParser = require('cookie-parser');
-const Routes = require('./routes/student');
+const cors = require('cors');
+const Routes = require('./routes/index');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,6 +16,9 @@ app.use(cookieParser());
 
 // Connect to database
 db();
+
+// enable CORS - Cross Origin Resource Sharing
+app.use(cors());
 
 // Routes
 app.use('/api', Routes);

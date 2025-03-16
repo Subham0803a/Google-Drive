@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 
 module.exports = () => {
   const usersSchema = new mongoose.Schema({

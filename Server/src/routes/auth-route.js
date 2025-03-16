@@ -28,10 +28,17 @@ const registerSchema = Joi.object({
     .required()
     .messages({
       'string.min': 'Password must be at least 6 characters long',
-      'any.required': 'Password is required'
     })
 });
 
+const validate = (req, res, next) => {
+  const { error } = registerSchema.validate(req.body);
+  if (error) {
+      const message = error.details.map(i => i.message).join(',');
+      return res.status(400).json({ error: message });
+  }
+  return next();
+};
 
 /**
  * Register a new user
@@ -42,7 +49,7 @@ const registerSchema = Joi.object({
  * @returns {Object} - Success message with created user details
  * @throws {Object} - 400 if validation fails or user already exists, 500 for server errors
  */
-router.post('/register', registerSchema, authMiddleware, register);
+router.post('/register', validate, register);
 
 /**
  * Initiate user login and send OTP

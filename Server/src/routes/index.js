@@ -1,7 +1,16 @@
-const Student = require('./student');
-const Auth = require('./auth');
+const express = require('express');
+const studentRoutes = require('./student-route');
+const authRoutes = require('./auth-route');
 
-module.exports = (app) => {
-  app.use('/api', Student);
-  app.use('/api', Auth);
-}
+const router = express.Router();
+
+/**
+ * api/student
+ */
+router.use('/students', studentRoutes);
+/**
+ * api/student
+ */
+router.use('/auth', authRoutes);
+
+module.exports = router;
