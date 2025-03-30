@@ -1,11 +1,17 @@
 const express = require('express');
-const studentRoutes = require('./student-route');
+const studentRoute = require('./student-route');
+const authRoute = require('./auth-route')
 
 const router = express.Router();
 
 /**
  * api/student
  */
-router.use('/students', studentRoutes);
+router.use('/students', studentRoute);
+
+/**
+ * api/auth
+ */
+router.use('/auth', authRoute);
 
 module.exports = router;
